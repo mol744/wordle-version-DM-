@@ -3,14 +3,12 @@
 
 int main(){
     printf("HOLA MUUUNDO\n\n");
-    char secreto[] = "pugna";
+    char secreto[] = "lento";
     Interfaz prueba[MAX_INTENTOS];
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < MAX_INTENTOS; i++){
         scanf("%s",&prueba[i].intento);
         prueba[i]=cambio_estado(prueba[i],secreto);
-        for (int j = 0; j < 5; j++)
-            printf("%d ",prueba[i].resultado[j]);
-        printf("\n\n");
+        mostrar(prueba[i]);
     }
     return 0;
 }

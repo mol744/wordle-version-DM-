@@ -47,6 +47,15 @@ Interfaz letras_parciales (Interfaz jugada, char *palabraSecreta){
 } 
 Interfaz cambio_estado(Interfaz jugada, char *palabraSecreta){
     jugada = letras_correctas(jugada,palabraSecreta);
+    if(ganador(jugada))
+      return jugada;
     jugada = letras_parciales(jugada,palabraSecreta);
   return jugada;
+}
+
+int ganador (Interfaz jugada){
+  for (int i = 0; i < MAX_TAMANO; i ++)
+    if (jugada.resultado[i] != 1)
+      return 0;
+  return 1;
 }

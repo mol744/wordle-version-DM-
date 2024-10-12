@@ -1,14 +1,9 @@
 #ifndef WORDLE_H
 #define WORDLE_H
-#define VERDE_T "\x1b[32m"
-#define AMARILLO_T "\x1b[33m"  
 #define MAX_TAMANO 5
 #define MAX_INTENTOS 6
 
-typedef struct juego{
-    char intento[MAX_TAMANO];
-    int resultado[MAX_TAMANO];
-}Interfaz;
+#include "ed1.h"
 
 //interfaz de juego
 void inicio_juego(char *palabraSecreta);
@@ -30,5 +25,8 @@ Interfaz letras_parciales (Interfaz jugada, char *palabraSecreta);
 
 //según el resultado de letra_presente aplicada a cada letra, actualiza el estado de la estructura ingresada como argumento.
 Interfaz cambio_estado(Interfaz jugada, char *palabraSecreta);
+
+//devuelve 1 si el intento es acertado.
+int ganador (Interfaz jugada);
 
 #endif

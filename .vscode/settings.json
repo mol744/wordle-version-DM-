@@ -1,6 +1,7 @@
 {
   "files.associations": {
     "wordle.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "ed1.h": "c"
   }
 }
