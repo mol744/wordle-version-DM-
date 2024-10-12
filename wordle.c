@@ -5,6 +5,7 @@
 Interfaz inicio_juego(Interfaz juego){
   for (int j = 0; j < MAX_TAMANO; j++){
     juego.intento[j] = ' ';
+    juego.resultado[j] = 0;
   }
   return juego;
 }

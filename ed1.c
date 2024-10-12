@@ -9,13 +9,13 @@ void mostrar(Interfaz jugada[]){
     }
     printf("+\n");
     for (int j = 0; j < 5; j++) {
-      if(jugada[i].resultado[j]==0 || jugada[i].intento[j] == ' '){
+      if(jugada[i].resultado[j]==0){
         printf("| %c ",jugada[i].intento[j]);
       }
       if(jugada[i].resultado[j]==1){
         printf(VERDE_T"| %c ",jugada[i].intento[j]);
       }
-      if(jugada[i].resultado[j]==2 && jugada[i].intento[j] != ' '){
+      if(jugada[i].resultado[j]==2){
         printf(AMARILLO_T"| %c ",jugada[i].intento[j]);
       }
       printf(RESET_COLOR);
