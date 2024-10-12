@@ -2,9 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 
-void inicio_juego(char *palabraSecreta){
-  printf("WORDLE -- EL JUEGO DE ADIVINAR PALABRAS DE 5 LETRAS\n\n");
-  printf("La palabra secreta es _____. Deberás descubrirla\ncolocando otras palabras de 5 letras (del castellano)\ny notando la respuesta del programa a esa palabra\ningresada.\n-- Color predeterminado: No se encuentra la letra en la palabra.\n-- Color Amarillo: La letra se encuentra en la palabra.\n-- Color verde: La letra se encuentra en la palabra y en la posición elegida.");
+Interfaz inicio_juego(Interfaz juego){
+  for (int j = 0; j < MAX_TAMANO; j++){
+    juego.intento[j] = ' ';
+  }
+  return juego;
 }
 
 int contar_letra_en_palabra_sin_posicion(char letra, char* palabraSecreta, char* intento) {

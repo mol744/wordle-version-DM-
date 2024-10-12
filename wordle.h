@@ -5,8 +5,10 @@
 
 #include "ed1.h"
 
-//interfaz de juego
-void inicio_juego(char *palabraSecreta);
+#define limpiar "cls"
+
+//inicializa los valores de los intentos a caracteres invisibles reemplazando la basura en memoria.
+Interfaz inicio_juego(Interfaz juego);
 
 //esta función cuenta las veces que una letra aparece en el intento cumpliendo la condición de estar en la secreta pero no en la posición correcta.
 int contar_letra_en_palabra_sin_posicion(char letra, char* palabraSecreta, char* intento);
