@@ -8,17 +8,16 @@ void mostrar(Interfaz jugada[]){
       printf("+---");
     }
     printf("+\n");
-    for (int j = 0; j < 5; j++) {
+    for (int j = 0; j < MAX_TAMANO; j++) {
       if(jugada[i].resultado[j]==0){
         printf("| %c ",jugada[i].intento[j]);
       }
       if(jugada[i].resultado[j]==1){
-        printf(VERDE_T"| %c ",jugada[i].intento[j]);
+        printf(VERDE_T "| %c " RESET_COLOR,jugada[i].intento[j]);
       }
       if(jugada[i].resultado[j]==2){
-        printf(AMARILLO_T"| %c ",jugada[i].intento[j]);
+        printf(AMARILLO_T "| %c " RESET_COLOR,jugada[i].intento[j]);
       }
-      printf(RESET_COLOR);
     }
     printf("|\n");
   }
