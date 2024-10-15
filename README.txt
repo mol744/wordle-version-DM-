@@ -1,5 +1,3 @@
-README.txt
-
 # TRABAJO PRACTICO 2 - WORDLE
 
 ### García Tomás, Morales Joaquín,  5to INFO IPS 2024
