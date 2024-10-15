@@ -1,6 +1,4 @@
 #include "ed1.h"
-#include <stdio.h>
-#include <string.h>
 
 void mostrar(Interfaz jugada[]){
   for (int i = 0; i < MAX_INTENTOS; i++){
@@ -27,4 +25,3 @@ void mostrar(Interfaz jugada[]){
   printf("+\n");
   printf("\n\n");
 }
-

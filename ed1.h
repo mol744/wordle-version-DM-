@@ -4,8 +4,11 @@
 #define AMARILLO_T "\x1b[33m"  
 #define RESET_COLOR "\x1b[0m"
 
+#include <stdio.h>
+
 #ifndef ED1_H
 #define ED1_H
+
 typedef struct{
     char intento[MAX_TAMANO];
     int resultado[MAX_TAMANO];

@@ -1,5 +1,15 @@
 #include "ed2.h"
 
+// Función para crear un nuevo nodo
+Heap *crearNodo(char palabra[], int frecuencia) {
+    Heap *nuevoNodo = (Heap *)malloc(sizeof(Heap));
+    assert(nuevoNodo != NULL);  // Verifica que la memoria fue asignada correctamente
+    strcpy(nuevoNodo->palabra, palabra);
+    nuevoNodo->frecuencia = frecuencia;
+    nuevoNodo->izq = nuevoNodo->der = NULL;
+    return nuevoNodo;
+}
+
 // Función para intercambiar dos nodos
 void intercambiarNodos(Heap *a, Heap *b) {
     char tempPalabra[5];
@@ -14,15 +24,6 @@ void intercambiarNodos(Heap *a, Heap *b) {
     tempFrecuencia = a->frecuencia;
     a->frecuencia = b->frecuencia;
     b->frecuencia = tempFrecuencia;
-}
-// Función para crear un nuevo nodo
-Heap *crearNodo(char palabra[], int frecuencia) {
-    Heap *nuevoNodo = (Heap *)malloc(sizeof(Heap));
-    assert(nuevoNodo != NULL);  // Verifica que la memoria fue asignada correctamente
-    strcpy(nuevoNodo->palabra, palabra);
-    nuevoNodo->frecuencia = frecuencia;
-    nuevoNodo->izq = nuevoNodo->der = NULL;
-    return nuevoNodo;
 }
 
 Heap *insertar(Heap *bd, char palabra[], int frecuencia) {
@@ -88,99 +89,53 @@ void downHeap(Heap *bd) {
     }
 }
 
-/*Función para encontrar y eliminar el nodo más profundo y derecho
-Heap *eliminarNodoProfundo(Heap *bd) {
-    if (bd == NULL) return NULL;
+// Función para eliminar el nodo raíz del max-heap y mantener la prioridad
 
-    // Si el nodo no tiene hijos, se puede eliminar directamente
+Heap *eliminarMax(Heap *bd) {
+    if (bd == NULL) return NULL; // Si el heap está vacío, no hay nada que eliminar.
+
+    Heap *temp = NULL;
+
+    // Si no hay hijos, simplemente se elimina.
     if (bd->izq == NULL && bd->der == NULL) {
         free(bd);
         return NULL;
     }
 
-    // Utilizamos una cola para recorrer el árbol nivel por nivel
-    Heap *ultimo, *padreUltimo = NULL;
-    Heap *cola[100];  // Cola para almacenar nodos (arreglo con capacidad arbitraria)
-    int inicio = 0, fin = 0;
-
-    // Encolar el nodo raíz
-    cola[fin++] = bd;
-
-    // Recorrer el árbol hasta encontrar el último nodo
-    while (inicio < fin) {
-        ultimo = cola[inicio++];
-
-        if (ultimo->izq) {
-            padreUltimo = ultimo;
-            cola[fin++] = ultimo->izq;
-        }
-
-        if (ultimo->der) {
-            padreUltimo = ultimo;
-            cola[fin++] = ultimo->der;
-        }
+    // Si solo hay un hijo, se reemplaza la raíz con ese hijo.
+    if (bd->izq != NULL && bd->der == NULL) {
+        temp = bd->izq;
+        free(bd);
+        return temp;
+    }
+    if (bd->izq == NULL && bd->der != NULL) {
+        temp = bd->der;
+        free(bd);
+        return temp;
     }
 
-    // Eliminar el último nodo encontrado y ajustar el puntero del padre
-    if (padreUltimo && padreUltimo->izq == ultimo) {
-        padreUltimo->izq = NULL;
-    } else if (padreUltimo && padreUltimo->der == ultimo) {
-        padreUltimo->der = NULL;
-    }
-
-    free(ultimo);
-    return bd;
-}
-*/
-// Función para eliminar el nodo raíz del max-heap y mantener la prioridad
-Heap *eliminarMax(Heap *bd) {
-    if (bd == NULL) return NULL; // Si el heap está vacío, no hay nada que eliminar
-
-    // Guardar la raíz para liberarla más tarde
-    Heap *raiz = bd;
-
-    // Reemplazar la raíz con el hijo izquierdo o derecho, según cuál exista
-    if (bd->izq == NULL && bd->der == NULL) {
-        // Si no hay hijos, simplemente se elimina
-        free(raiz);
-        return NULL;
-    } else if (bd->izq != NULL && bd->der == NULL) {
-        // Si solo hay hijo izquierdo
-        bd = bd->izq;
-    } else if (bd->izq == NULL && bd->der != NULL) {
-        // Si solo hay hijo derecho
-        bd = bd->der;
+    // Si hay ambos hijos, encontrar el hijo con mayor frecuencia.
+    if (bd->izq->frecuencia > bd->der->frecuencia ||
+        (bd->izq->frecuencia == bd->der->frecuencia && strcmp(bd->izq->palabra, bd->der->palabra) <= 0)) {
+        // Reemplazar la raíz por el hijo izquierdo.
+        strcpy(bd->palabra, bd->izq->palabra);
+        bd->frecuencia = bd->izq->frecuencia;
+        bd->izq = eliminarMax(bd->izq); // Llamar a eliminar sobre el hijo izquierdo.
     } else {
-        // Si hay ambos hijos, se debe encontrar el mayor entre ellos para moverlo a la raíz
-        if (bd->izq->frecuencia > bd->der->frecuencia) {
-            bd->palabra[0] = bd->izq->palabra[0]; // Reemplazar la raíz
-            bd->frecuencia = bd->izq->frecuencia; // Reemplazar la frecuencia
-            bd->izq = eliminarMax(bd->izq); // Eliminar el antiguo hijo izquierdo
-        } else if (bd->izq->frecuencia > bd->der->frecuencia){
-            bd->palabra[0] = bd->der->palabra[0]; // Reemplazar la raíz
-            bd->frecuencia = bd->der->frecuencia; // Reemplazar la frecuencia
-            bd->der = eliminarMax(bd->der); // Eliminar el antiguo hijo derecho
-        }else if(strcmp(bd->izq->palabra,bd->der->palabra)>0){
-            bd->palabra[0] = bd->der->palabra[0]; // Reemplazar la raíz
-            bd->frecuencia = bd->der->frecuencia; // Reemplazar la frecuencia
-            bd->der = eliminarMax(bd->der); // Eliminar el antiguo hijo derecho
-        }else{
-            bd->palabra[0] = bd->izq->palabra[0]; // Reemplazar la raíz
-            bd->frecuencia = bd->izq->frecuencia; // Reemplazar la frecuencia
-            bd->izq = eliminarMax(bd->izq); // Eliminar el antiguo hijo izquierdo
-        }
+        // Reemplazar la raíz por el hijo derecho.
+        strcpy(bd->palabra, bd->der->palabra);
+        bd->frecuencia = bd->der->frecuencia;
+        bd->der = eliminarMax(bd->der); // Llamar a eliminar sobre el hijo derecho.
     }
 
-    // Liberar la memoria del nodo eliminado (la antigua raíz)
-    free(raiz);
-    return bd; // Retornar el nuevo árbol
+    return bd; // Retornar el nuevo árbol.
 }
 
 void imprimirHeap(Heap *bd) {
     if (bd == NULL) {
         return;
     }
-    printf("Palabra: %s, Frecuencia: %d\n", bd->palabra, bd->frecuencia);
+    printf("Palabra1: %s, Frecuencia1: %d\n", bd->palabra, bd->frecuencia);
     // Recorrer el hijo izquierdo
     imprimirHeap(bd->izq);
     // Recorrer el hijo derecho
@@ -194,7 +149,7 @@ void liberarmem(Heap *arbol){
 }
 
 Heap *armarbd(){
-    FILE *archivo = fopen("1.txt", "r");
+    FILE *archivo = fopen("3.txt", "r");
     if (archivo == NULL) {
         perror("Error al abrir el archivo");
         return NULL;
@@ -207,14 +162,17 @@ Heap *armarbd(){
         // %5[^,] significa que se lee hasta 5 caracteres antes de la coma y se guarda en 'palabra'
         // Luego lee el número después de la coma y lo guarda en 'frecuencia'
         arbol = insertar(arbol, palabra, frecuencia);
-        printf("Palabra: %s, Frecuencia: %d\n", palabra, frecuencia);
-        printf("\n");
+        //printf("Palabra: %s, Frecuencia: %d\n", palabra, frecuencia);
+        //printf("\n");
         // Aquí puedes hacer lo que necesites con la palabra y frecuencia, como insertar en un heap
     }
 
     fclose(archivo);
-    imprimirHeap(arbol);
     printf("\n");
-    arbol = eliminarMax(arbol);
     return arbol;
 }
+// int main(){
+//     Heap *bd=NULL;
+//     bd=armarbd();
+//     imprimirHeap(bd);
+// }

@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <assert.h>
 #include "wordle.h"
+#include <conio.h>
 
 int main(int argc, char *argv[]){
-  assert(argc!=2);
+  assert(argc != 2);
   char *palabraSecreta = malloc(strlen(argv[1]) * sizeof(char) + 1);
   strcpy(palabraSecreta,argv[1]);
   if (strlen(palabraSecreta) != MAX_TAMANO){
     printf("PALABRA NO VALIDA, DEBE SER DE %d LETRAS",MAX_TAMANO);
     return 0;
   }
+  Interfaz juego [MAX_INTENTOS];
   if(!strcmp(argv[2],"persona")){
     system(limpiar);
     printf("WORDLE -- EL JUEGO DE ADIVINAR PALABRAS DE 5 LETRAS\n\n");
@@ -17,24 +19,22 @@ int main(int argc, char *argv[]){
     printf("\n\nPresiona cualquier tecla para comenzar...\n");
     getch();
     printf("¡Comenzando el programa!\n");
-    Interfaz prueba [MAX_INTENTOS];
     for (int i = 0; i < MAX_INTENTOS; i++){
-      prueba[i] = inicio_juego(prueba[i]);
+      juego[i] = inicio_juego(juego[i]);
     }
-    char secreto[] = "lleno";
     int gana = 0;
-    for (int i = 0; i < MAX_INTENTOS; i++){
+    for (int i = 0; i < MAX_INTENTOS && !gana; i++){
       printf("\n\nIngrese una palabra de 5 letras: ");
-      scanf("%s",&prueba[i].intento);
-      while(strlen(prueba[i].intento)!=5){
+      scanf("%s",&juego[i].intento);
+      while(strlen(juego[i].intento)!=5){
         printf("\n\nIngrese una palabra de 5 letras: ");
-        scanf("%s",&prueba[i].intento);
+        scanf("%s",&juego[i].intento);
       }
-      prueba[i]=cambio_estado(prueba[i],secreto);
-      if(ganador(prueba[i]))
+      juego[i]=cambio_estado(juego[i],palabraSecreta);
+      if(ganador(juego[i]))
         gana = 1;
       system(limpiar);
-      mostrar(prueba);
+      mostrar(juego);
     }
     if (gana){
       printf("FIN DE PARTIDA, ACERTASTE LA PALABRA!");
@@ -43,9 +43,18 @@ int main(int argc, char *argv[]){
       printf("FIN DE PARTIDA, INTENTOS AGOTADOS.");
       return 2;
     }
-  }
+  }else{}
 
-  if(strcmp(argv[2],"maquina")){
-    
+  if(!strcmp(argv[2],"maquina")){
+    printf("HOLA, MODO MAQUINA\n");
+    Colores color;
+    int gana = 0;
+    for (int i = 0; i < MAX_INTENTOS && !gana; i++){
+      color = sugerirpalabra(color);
+      strcpy(juego[i].intento, color.palabra);
+      color = cambio_letras(color,palabraSecreta);
+      cambio_estado(juego[i],palabraSecreta);
+    }
+    mostrar(juego);
   }
 }

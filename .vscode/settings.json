@@ -2,6 +2,8 @@
   "files.associations": {
     "wordle.h": "c",
     "stdio.h": "c",
-    "ed1.h": "c"
+    "ed1.h": "c",
+    "conio.h": "c",
+    "maquina.h": "c"
   }
 }

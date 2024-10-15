@@ -1,20 +1,22 @@
 #define MAX_PALABRA 5
+#define MAX_INTENTOS 6
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
 #ifndef ED2_H
+
 typedef struct Heap{
-char palabra[5];
+char palabra[MAX_PALABRA];
 int frecuencia;
 struct Heap *der, *izq;
-}Heap;
-
-// Función para intercambiar dos nodos
-void intercambiarNodos(Heap *a, Heap *b);
+} Heap;
 
 // Función para crear un nuevo nodo
 Heap *crearNodo(char palabra[], int frecuencia);
+
+// Función para intercambiar dos nodos
+void intercambiarNodos(Heap *a, Heap *b);
 
 //Inserta un Nodo en el heap
 Heap *insertar(Heap *bd, char palabra[], int frecuencia);

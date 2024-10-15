@@ -3,7 +3,10 @@
 #define MAX_TAMANO 5
 #define MAX_INTENTOS 6
 
+#include "maquina.h"
 #include "ed1.h"
+#include <stdio.h>
+#include <string.h>
 
 #define limpiar "cls"
 
@@ -12,9 +15,6 @@ Interfaz inicio_juego(Interfaz juego);
 
 //esta función cuenta las veces que una letra aparece en el intento cumpliendo la condición de estar en la secreta pero no en la posición correcta.
 int contar_letra_en_palabra_sin_posicion(char letra, char* palabraSecreta, char* intento);
-
-//esta funcion devuelve: (0) si la letra no está en la palabra, (1) si está en su lugar y (2) si está, pero no en la posición correcta
-int letra_presente(char c, int posicion, char *palabraSecreta);
 
 //en los casos en los que haya letras en color amarillo, esta función acomoda el resultado de modo que no hayan letras repetidas.
 Interfaz verificar_repeticiones(Interfaz jugada, char *palabraSecreta);
