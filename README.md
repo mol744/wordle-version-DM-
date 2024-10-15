@@ -5,7 +5,7 @@
 ## Descripción del proyecto
 La idea de este proyecto es recrear el conocido juego de página web en lenguaje C que ,además de la funcionalidad normalizada en que el usuario intenta adivinar la palabra por medio de intentos, se agrega una aplicación de sugerencia de palabras manejada por una maquina también codificada.
 
-Esta máquina toma palabras ,del mismo largo cada una (5), de una base de datos donde también están acompañadas de un número que representa la frecuencia con la que se usan en el habla de nuestro idioma. Es un criterio que usa la máquina para determinar cuál elegir para el intento de adivinar.
+Esta máquina toma palabras ,del mismo largo cada una (5), de una base de datos donde también están acompañadas de un número que representa la frecuencia con la que se usan en el habla de nuestro idioma. Es un criterio que usa la máquina para determinar cuál elegir para el intento de adivinar. En el caso de nuestro código, no actúa como una sugerencia para quien está jugando, sino que intentará la misma máquina adivinar la palabra secretra con sus palabras disponibles. Si no puede sugerir más palabras, dará un mensaje al respecto y mostrará en pantalla los intentos que hizo.
 
 Criterio de desempate: peso alfabético letra por letra.
 

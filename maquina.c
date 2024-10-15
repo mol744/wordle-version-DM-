@@ -66,9 +66,9 @@ Heap *filtrarHeap(Heap *bd, Colores aux) {
 }
 
 Colores cambio_letras(Colores aux, char *palabraSecreta){
-    int contadorVerde = 0;
-    int contadorAmarillo = 0;
-    int contadorGris = 0;
+    int contadorVerde = cantelem(aux);
+    int contadorAmarillo = strlen(aux.amarillo);
+    int contadorGris = strlen(aux.gris);
     for (int i = 0; i < MAX_PALABRA; i++){
         if (aux.palabra[i] == palabraSecreta[i]){
             aux.verdes[contadorVerde].verde = aux.palabra[i];
@@ -110,14 +110,14 @@ Colores sugerirpalabra(Colores aux) {
     return aux;
 }
 
-int main() {
-    Colores parametros;
-    parametros = sugerirpalabra(parametros);
-    strcpy(parametros.palabra,"jaula");
-    if (parametros.palabra != NULL) {
-        printf("\nPalabra obtenida: %s\n", parametros.palabra);
-    } else {
-        printf("\nNo se pudo obtener una palabra.\n");
-    }
-    return 0;
-}
+// int main() {
+//     Colores parametros;
+//     parametros = sugerirpalabra(parametros);
+//     strcpy(parametros.palabra,"jaula");
+//     if (parametros.palabra != NULL) {
+//         printf("\nPalabra obtenida: %s\n", parametros.palabra);
+//     } else {
+//         printf("\nNo se pudo obtener una palabra.\n");
+//     }
+//     return 0;
+// }
