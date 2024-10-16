@@ -6,7 +6,7 @@ int main(int argc, char *argv[]){
   assert(argc != 2);
   char *palabraSecreta = malloc(strlen(argv[1]) * sizeof(char) + 1);
   strcpy(palabraSecreta,argv[1]);
-  
+
   if (strlen(palabraSecreta) != MAX_TAMANO){
     printf("%s NO ES UNA PALABRA VALIDA, DEBE SER DE %d LETRAS",palabraSecreta,MAX_TAMANO);
     return 0;
@@ -16,7 +16,7 @@ int main(int argc, char *argv[]){
   for (int i = 0; i < MAX_INTENTOS; i++){
     juego[i] = inicio_juego(juego[i]);
   }
-
+  // Modo persona
   if(!strcmp(argv[2],"persona")){
     system(limpiar);
     printf("WORDLE -- EL JUEGO DE ADIVINAR PALABRAS DE %d LETRAS\n\n",MAX_TAMANO);
@@ -48,19 +48,43 @@ int main(int argc, char *argv[]){
       printf("FIN DE PARTIDA, INTENTOS AGOTADOS.");
       return 2;
     }
-  }else{}
-
+  }
+  // Modo maquina
   if(!strcmp(argv[2],"maquina")){
     printf("HOLA, MODO MAQUINA\n");
-    Colores color;
+    Colores color = {0};
     int gana = 0;
-    for (int i = 0; i < MAX_INTENTOS && !gana; i++){
-      color = sugerirpalabra(color);
-      color = cambio_letras(color,palabraSecreta);
-      strcpy(juego[i].intento, color.palabra);
-      cambio_estado(juego[i],palabraSecreta);
-      gana = ganador(juego[i]);
+    int sinPalabras = 0;
+    Heap *bd = armarbd();
+    if (bd == NULL) {
+        printf("Error al armar la base de datos.\n");
     }
+
+    for (int i = 0; i < MAX_INTENTOS && !gana && !sinPalabras; i++){
+      color = sugerirpalabra(bd,color);
+      if(color.palabra[0] == '\0'){
+        sinPalabras = 1;
+      }else{
+      strcpy(juego[i].intento, color.palabra);
+      color = cambio_letras(color,palabraSecreta);
+      juego[i] = cambio_estado(juego[i],palabraSecreta);
+      bd = eliminarMax(bd);
+      gana = ganador(juego[i]);
+      }
+    }
+    liberarmem(bd);
     mostrar(juego);
+    if(sinPalabras){
+      printf("\nLA MAQUINA NO TIENE MAS PALABRAS PARA INTENTAR!\n");
+      return 3;
+    }
+    if (gana){
+      printf("\nFIN DE PARTIDA, LA MAQUINA DIO CON LA PALABRA!\n");
+      return 1;
+    }else{
+      printf("\nFIN DE PARTIDA, INTENTOS AGOTADOS.\n");
+      return 2;
+    }
   }
+  free(palabraSecreta);
 }

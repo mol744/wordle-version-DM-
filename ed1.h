@@ -14,7 +14,7 @@ typedef struct{
     int resultado[MAX_TAMANO];
 }Interfaz;
 
-//muestra las letras amarillas (aparecen pero no estan en pos correcta), grises(no estan) y verdes (estan en la pos correcta).
+//muestra las letras amarillas (aparecen pero no estan en pos correcta), grises (no estan) y verdes (estan en la pos correcta).
 void mostrar(Interfaz jugada[]);
 
 #endif

@@ -7,7 +7,7 @@
 #ifndef ED2_H
 
 typedef struct Heap{
-char palabra[MAX_PALABRA];
+char palabra[5];
 int frecuencia;
 struct Heap *der, *izq;
 } Heap;

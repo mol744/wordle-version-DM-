@@ -18,15 +18,13 @@ typedef struct{
 //cuenta las letras que están en correcta posición por el momento.
 int cantelem(Colores aux);
 
-//cambia los valores verded, amarillo y gris de la estructura colores según el intento.
+//cambia los valores verde, amarillo y gris de la estructura colores según el intento.
 Colores cambio_letras(Colores palabra, char *palabraSecreta);
 
-//sugiere una palabra 
-Colores sugerirpalabra(Colores aux);
+//Filtra el heap en base a las verdes, amarillas y grises
+Heap *filtrarHeap(Heap *bd, Colores aux);
 
-//filtra el Heap en base a las palabras amarillas, verdes y grises
-void juego_maquina(Colores juego[]);
-
-
+//elige una palabra para el siguiente intento
+Colores sugerirpalabra(Heap *bd,Colores aux);
 
 #endif

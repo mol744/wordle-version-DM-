@@ -2,7 +2,7 @@
 
 // Función para crear un nuevo nodo
 Heap *crearNodo(char palabra[], int frecuencia) {
-    Heap *nuevoNodo = (Heap *)malloc(sizeof(Heap));
+    Heap *nuevoNodo = malloc(sizeof(Heap));
     assert(nuevoNodo != NULL);  // Verifica que la memoria fue asignada correctamente
     strcpy(nuevoNodo->palabra, palabra);
     nuevoNodo->frecuencia = frecuencia;
@@ -38,19 +38,16 @@ Heap *insertar(Heap *bd, char palabra[], int frecuencia) {
     }
     // Si la frecuencia es mayor, se inserta en el subárbol derecho
     else if (frecuencia > bd->frecuencia) {
-        Heap *aux = crearNodo(palabra, frecuencia);
-        intercambiarNodos(aux, bd);
-        bd->der = insertar(bd->der, aux->palabra, aux->frecuencia);
-        free(aux); // Liberar el nodo auxiliar
+        bd->der = insertar(bd->der, palabra, frecuencia);
     }
     // Si las frecuencias son iguales, se comparan las palabras
     else {
+        // Si la palabra es mayor lexicográficamente, va al subárbol izquierdo
         if (strcmp(palabra, bd->palabra) > 0) {
-            Heap *aux = crearNodo(palabra, frecuencia);
-            intercambiarNodos(aux, bd);
-            bd->izq = insertar(bd->izq, aux->palabra, aux->frecuencia);
-            free(aux); // Liberar el nodo auxiliar
-        } else {
+            bd->izq = insertar(bd->izq, palabra, frecuencia);
+        }
+        // Si la palabra es menor o igual lexicográficamente, va al subárbol derecho
+        else {
             bd->der = insertar(bd->der, palabra, frecuencia);
         }
     }
@@ -162,17 +159,17 @@ Heap *armarbd(){
         // %5[^,] significa que se lee hasta 5 caracteres antes de la coma y se guarda en 'palabra'
         // Luego lee el número después de la coma y lo guarda en 'frecuencia'
         arbol = insertar(arbol, palabra, frecuencia);
-        //printf("Palabra: %s, Frecuencia: %d\n", palabra, frecuencia);
-        //printf("\n");
         // Aquí puedes hacer lo que necesites con la palabra y frecuencia, como insertar en un heap
     }
 
     fclose(archivo);
-    printf("\n");
     return arbol;
 }
-// int main(){
-//     Heap *bd=NULL;
-//     bd=armarbd();
-//     imprimirHeap(bd);
-// }
+/*
+int main(){
+    Heap *bd=NULL;
+    bd=armarbd();
+    imprimirHeap(bd);
+    liberarmem(bd);
+}
+*/
