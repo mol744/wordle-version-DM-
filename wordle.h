@@ -8,8 +8,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#define limpiar "cls"
-
 //inicializa los valores de los intentos a caracteres invisibles reemplazando la basura en memoria.
 Interfaz inicio_juego(Interfaz juego);
 

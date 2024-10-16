@@ -9,6 +9,12 @@
 #ifndef ED1_H
 #define ED1_H
 
+#ifdef _WIN32_ 
+  #define limpiar "cls"
+#else // Linux o MacOS
+  #define limpiar "clear"
+#endif
+
 typedef struct{
     char intento[MAX_TAMANO];
     int resultado[MAX_TAMANO];
