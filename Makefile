@@ -1,5 +1,5 @@
 #make / make clean
-CC = gc
+CC = gcc
 CFLAGS = -Wall -g
 OBJETS = main.o wordle.o machine.o ed1.o ed2.o
 TARGET = wordle
