@@ -32,13 +32,13 @@ int main(int argc, char *argv[]){
     int gana = 0;
     for (int i = 0; i < MAX_INTENTOS && !gana; i++){
       printf("\n\nIngrese una palabra de 5 letras: ");
-      scanf("%s",&juego[i].intento);
+      scanf("%s",juego[i].intento);
       while(strlen(juego[i].intento)!=5){
         printf("\033[A");
         printf("\033[2K");
         printf("\033[A");
         printf("\nIngrese una palabra de 5 (CINCO) letras: ");
-        scanf("%s",&juego[i].intento);
+        scanf("%s",juego[i].intento);
       }
       juego[i]=cambio_estado(juego[i],palabraSecreta);
       if(ganador(juego[i]))
