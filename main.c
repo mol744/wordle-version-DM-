@@ -48,10 +48,12 @@ int main(int argc, char *argv[]){
     }
     if (gana){
       printf("FIN DE PARTIDA, ACERTASTE LA PALABRA!");
+      free(palabraSecreta);
       return 1;
     }else{
       printf("FIN DE PARTIDA, INTENTOS AGOTADOS.\n");
       printf("La palabra secreta era: %s",palabraSecreta);
+      free(palabraSecreta);
       return 2;
     }
   }
@@ -82,17 +84,19 @@ int main(int argc, char *argv[]){
     mostrar(juego);
     if(sinPalabras){
       printf("\nLA MAQUINA NO TIENE MAS PALABRAS PARA INTENTAR!\n");
+      free(palabraSecreta);
       return 3;
     }
     if (gana){
       printf("\nFIN DE PARTIDA, LA MAQUINA DIO CON LA PALABRA!\n");
       printf("La palabra secreta era: %s",palabraSecreta);
+      free(palabraSecreta);
       return 1;
     }else{
       printf("\nFIN DE PARTIDA, INTENTOS AGOTADOS.\n");
       printf("La palabra secreta era: %s",palabraSecreta);
+      free(palabraSecreta);
       return 2;
     }
   }
-  free(palabraSecreta);
 }

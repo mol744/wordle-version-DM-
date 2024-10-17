@@ -1,7 +1,7 @@
 #make / make clean
 CC = gcc
 CFLAGS = -Wall -g
-OBJETS = main.o wordle.o machine.o ed1.o ed2.o
+OBJETS = main.o wordle.o maquina.o ed1.o ed2.o
 TARGET = wordle
 
 $(TARGET): $(OBJETS)
