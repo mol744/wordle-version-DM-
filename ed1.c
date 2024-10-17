@@ -7,11 +7,12 @@ int contar_lineas(char* nombre_archivo) {
     return 0;
   }
   int conteo = 0;
-  char linea[100];
+  char *linea = malloc(sizeof(char) * 100);
   while (fgets(linea, sizeof(linea), archivo) != NULL) {
     conteo++;
   }
   fclose(archivo);
+  free(linea);
   return conteo;
 }
 
