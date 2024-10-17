@@ -5,7 +5,12 @@
 int main(int argc, char *argv[]){
   assert(argc != 2);
   char *palabraSecreta = malloc(strlen(argv[1]) * sizeof(char) + 1);
-  strcpy(palabraSecreta,argv[1]);
+  // si en lugar de ingresar una palabra de 5 letras usamos "random" elegirá una palabra aleatoria del archivo que se utiliza para el modo maquina
+  if(!strcmp(argv[1],"random")){
+    leer_palabra_aleatoria("3.txt",palabraSecreta);
+  }else{
+    strcpy(palabraSecreta,argv[1]);
+  }
 
   if (strlen(palabraSecreta) != MAX_TAMANO){
     printf("%s NO ES UNA PALABRA VALIDA, DEBE SER DE %d LETRAS",palabraSecreta,MAX_TAMANO);
@@ -45,7 +50,8 @@ int main(int argc, char *argv[]){
       printf("FIN DE PARTIDA, ACERTASTE LA PALABRA!");
       return 1;
     }else{
-      printf("FIN DE PARTIDA, INTENTOS AGOTADOS.");
+      printf("FIN DE PARTIDA, INTENTOS AGOTADOS.\n");
+      printf("La palabra secreta era: %s",palabraSecreta);
       return 2;
     }
   }
@@ -80,9 +86,11 @@ int main(int argc, char *argv[]){
     }
     if (gana){
       printf("\nFIN DE PARTIDA, LA MAQUINA DIO CON LA PALABRA!\n");
+      printf("La palabra secreta era: %s",palabraSecreta);
       return 1;
     }else{
       printf("\nFIN DE PARTIDA, INTENTOS AGOTADOS.\n");
+      printf("La palabra secreta era: %s",palabraSecreta);
       return 2;
     }
   }

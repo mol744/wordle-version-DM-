@@ -36,7 +36,9 @@ Esta información que queda guardada sirve como referencia para el siguiente int
     ```bash
     ./wordle <palabra_secreta> <modo_de_juego>
     ```
---nota-- los modos de juego disponibles son "persona", para que juegue el usuario y "maquina" para que la utilización de las funciones automatizadas. 
+    --notas-- 
+    | los modos de juego disponibles son "persona", para que juegue el usuario y "maquina" para que la      utilización de las funciones automatizadas.
+    | si en el primer argumento pasamos la palabra "random" tomará una palabra del archivo que contiene las palabras de la base de datos de manera aleatoria para jugar en cualquiera de los dos modos mencionados anteriormente.
 
 3. Para limpiar los archivos compilados:
     ```bash

@@ -5,8 +5,6 @@
 
 #include "maquina.h"
 #include "ed1.h"
-#include <stdio.h>
-#include <string.h>
 
 //inicializa los valores de los intentos a caracteres invisibles reemplazando la basura en memoria.
 Interfaz inicio_juego(Interfaz juego);

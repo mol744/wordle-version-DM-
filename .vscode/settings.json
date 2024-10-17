@@ -4,6 +4,7 @@
     "stdio.h": "c",
     "ed1.h": "c",
     "conio.h": "c",
-    "maquina.h": "c"
+    "maquina.h": "c",
+    "string.h": "c"
   }
 }
